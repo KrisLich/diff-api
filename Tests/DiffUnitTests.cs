@@ -24,14 +24,14 @@ namespace DiffAPI.Tests
         public void UploadLeftData_ShouldCallDiffServiceAndReturnCreatedAtActionResult()
         {
             // Arrange
-            var id = "testId";
-            var data = new DataRequestModel { Data = "testData" };
+            var id = "123";
+            var data = new DataRequestModel { Data = "AAAAAA==" };
 
             // Act
             var result = _controller.UploadLeftData(id, data);
 
             // Assert
-            _mockDiffService.Verify(service => service.UploadLeftData(id, data.Data), Times.Once);
+            _mockDiffService.Verify(service => service.UploadLeftData(id, Convert.FromBase64String(data.Data)), Times.Once);
             Assert.IsType<CreatedAtActionResult>(result);
         }
 
@@ -39,14 +39,14 @@ namespace DiffAPI.Tests
         public void UploadRightData_ShouldCallDiffServiceAndReturnCreatedAtActionResult()
         {
             // Arrange
-            var id = "testId";
-            var data = new DataRequestModel { Data = "testData" };
+            var id = "123";
+            var data = new DataRequestModel { Data = "AAAAAA==" };
 
             // Act
             var result = _controller.UploadRightData(id, data);
 
             // Assert
-            _mockDiffService.Verify(service => service.UploadRightData(id, data.Data), Times.Once);
+            _mockDiffService.Verify(service => service.UploadRightData(id, Convert.FromBase64String(data.Data)), Times.Once);
             Assert.IsType<CreatedAtActionResult>(result);
         }
 
@@ -54,7 +54,7 @@ namespace DiffAPI.Tests
         public void GetDiffResult_ShouldReturnNotFoundResultWhenIdDoesNotExist()
         {
             // Arrange
-            var id = "testId";
+            var id = "123";
             _mockDiffService.Setup(service => service.GetDiffResult(id)).Returns((DiffResultModel)(null));
 
             // Act
@@ -68,7 +68,7 @@ namespace DiffAPI.Tests
         public void GetDiffResult_ShouldReturnOkObjectResultWithCorrectDataWhenIdExists()
         {
             // Arrange
-            var id = "testId";
+            var id = "123";
             var diffResult = new DiffResultModel();
             _mockDiffService.Setup(service => service.GetDiffResult(id)).Returns(diffResult);
 

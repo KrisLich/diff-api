@@ -8,8 +8,8 @@ namespace DiffAPI.Services
         /// <summary>
         /// The data store where the data sets are stored.
         /// </summary>
-        public Dictionary<string, (string left, string right)> DataStore => _dataStore;
-        private readonly Dictionary<string, (string left, string right)> _dataStore = new Dictionary<string, (string, string)>();
+        public Dictionary<string, (byte[] left, byte[] right)> DataStore => _dataStore;
+        private readonly Dictionary<string, (byte[] left, byte[] right)> _dataStore = new Dictionary<string, (byte[], byte[])>();
 
         /// <summary>
         /// Uploads left data to be diffed.
@@ -17,7 +17,7 @@ namespace DiffAPI.Services
         /// <param name="id">The ID</param>
         /// <param name="data">The data</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void UploadLeftData(string id, string data)
+        public void UploadLeftData(string id, byte[] data)
         {
             if (data == null)
             {
@@ -40,7 +40,7 @@ namespace DiffAPI.Services
         /// <param name="id">The ID</param>
         /// <param name="data">The data</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void UploadRightData(string id, string data)
+        public void UploadRightData(string id, byte[] data)
         {
             if (data == null)
             {

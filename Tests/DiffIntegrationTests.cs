@@ -1,7 +1,5 @@
 ﻿using DiffAPI.Models;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
@@ -27,8 +25,8 @@ namespace DiffAPI.Tests
         public async Task UploadLeftData_ShouldReturnCreatedAtActionResult()
         {
             // Arrange
-            var id = "testId";
-            var data = new DataRequestModel { Data = "testData" };
+            var id = "123";
+            var data = new DataRequestModel { Data = "SGVsbG8=" };
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
             // Act
@@ -42,8 +40,8 @@ namespace DiffAPI.Tests
         public async Task UploadRightData_ShouldReturnCreatedAtActionResult()
         {
             // Arrange
-            var id = "tesId";
-            var data = new DataRequestModel { Data = "testData" };
+            var id = "123";
+            var data = new DataRequestModel { Data = "AQABAQ==" };
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
             // Act

@@ -7,9 +7,9 @@ namespace DiffAPI.Services
     /// </summary>
     public interface IDiffService
     {
-        void UploadLeftData(string id, string data);
+        void UploadLeftData(string id, byte[] data);
 
-        void UploadRightData(string id, string data);
+        void UploadRightData(string id, byte[] data);
 
         DiffResultModel GetDiffResult(string id);
     }

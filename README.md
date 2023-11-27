@@ -1,10 +1,11 @@
+
 # DiffAPI
 
- A simple diffing API using ASP.NET Core .NET 8.0
+A simple diffing API using ASP.NET Core .NET 8.0 that accepts JSON containing binary base64 encoded data, decodes it, and performs a diff operation on the decoded data.
 
 ## Introduction
 
-This ASP.NET Core API provides endpoints for comparing data and identifying differences. The API exposes two endpoints to submit data for comparison and a third endpoint to retrieve the comparison results.
+This ASP.NET Core API provides endpoints for comparing base64 binary encoded data and identifying differences. The API exposes two endpoints to submit data for comparison and a third endpoint to retrieve the comparison results.
 
 ### Prerequisites
 
@@ -30,7 +31,7 @@ Parameters:
 Request Body:  
 ```json
 {
-    "data": "YourFirstDataToBeDiffed"
+    "data": "YourFirstBinaryBase64EncodedData"
 }
 ```
 Response:  
@@ -45,7 +46,7 @@ Parameters:
 Request Body:  
 ```json
 {
-    "data": "YourSecondDataToBeDiffed"
+    "data": "YourSecondBinaryBase64EncodedData"
 }
 ```
 Response:  
@@ -59,15 +60,14 @@ Parameters:
 -- id (string): identifier for the data  
 Response:  
 200 Ok - with JSON containing "diffResultType" and "diffs"  
-value of diffResultType:  
+value of 'diffResultType':  
 -- if the data is equal: "Equals"  
 -- if the data is different: "SizeDoNotMatch"  
 -- if the content does not match: "ContentDoNotMatch"  
-value of diff:  
+value of 'diff':  
 diff will only have value if size matches, with values of "offset" and "length"  
-value of offset: on which index the change occurs  
-value of length: for how long there is a change  
-there can be multiple separate changes  
+value of 'offset': on which index the change occurs  
+value of 'length': for how long there is a change    
 
 ### Example
 
@@ -81,7 +81,7 @@ PUT /v1/diff/1/left
 Response: 201 Created
 
 
-2. Uploading to right data for ID 1 with data "AAAAAA=="
+2. Uploading to right data for ID 1 with data "AQABAQ=="
 PUT /v1/diff/1/right
 ```json
 {
@@ -98,16 +98,12 @@ GET /v1/diff/1
     "diffResultType": "ContentDoNotMatch",
     "diffs": [
         {
-            "offset": 1,
+            "offset": 0,
             "length": 1
         },
         {
-            "offset": 3,
-            "length": 1
-        },
-        {
-            "offset": 5,
-            "length": 1
+            "offset": 2,
+            "length": 2
         }
     ]
 }

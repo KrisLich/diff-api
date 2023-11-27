@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Asp.Versioning;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text;
 
 namespace DiffAPI.Controllers
 {
@@ -42,7 +43,11 @@ namespace DiffAPI.Controllers
         public IActionResult UploadLeftData(string id, [FromBody] DataRequestModel data)
         {
             _logger.LogInformation($"Received PUT request for left data with ID [{id}] and value ({data.Data})");
-            _diffService.UploadLeftData(id, data.Data);
+
+            // Base64 decoding
+            byte[] decodedData = Convert.FromBase64String(data.Data);
+
+            _diffService.UploadLeftData(id, decodedData);
             return CreatedAtAction(nameof(UploadLeftData), new { id }, null);
         }
 
@@ -57,7 +62,11 @@ namespace DiffAPI.Controllers
         public IActionResult UploadRightData(string id, [FromBody] DataRequestModel data)
         {
             _logger.LogInformation($"Received PUT request for right data with ID [{id}] and value ({data.Data})");
-            _diffService.UploadRightData(id, data.Data);
+
+            // Base64 decoding
+            byte[] decodedData = Convert.FromBase64String(data.Data);
+
+            _diffService.UploadRightData(id, decodedData);
             return CreatedAtAction(nameof(UploadRightData), new { id }, null);
         }
 

@@ -13,7 +13,7 @@ namespace DiffAPI.Helpers
         /// <param name="left">The 1st string to compare.</param>
         /// <param name="right">The 2nd string to compare.</param>
         /// <returns>A DiffResultModel representing the differences between the two strings. (offset and length)</returns>
-        public static DiffResultModel CompareData(string left, string right)
+        public static DiffResultModel CompareData(byte[] left, byte[] right)
         {
             if (left == null && right == null)
             {
@@ -22,7 +22,6 @@ namespace DiffAPI.Helpers
 
             if (left == null || right == null)
             {
-                //_logger.LogError($"Data size does not match for ID {id}");
                 return new DiffResultModel { DiffResultType = DiffResultType.SizeDoNotMatch };
             }
 
@@ -31,7 +30,7 @@ namespace DiffAPI.Helpers
                 return new DiffResultModel { DiffResultType = DiffResultType.SizeDoNotMatch };
             }
 
-            if (left.ToString().Equals(right.ToString()))
+            if (left.Equals(right))
             {
                 return new DiffResultModel { DiffResultType = DiffResultType.Equals };
             }
