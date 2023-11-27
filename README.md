@@ -21,7 +21,7 @@ This ASP.NET Core API provides endpoints for comparing data and identifying diff
 
 ### Endpoints
 
-##### 1. Upload Left Data
+#### 1. Upload Left Data
 This endpoint uploads the 1st (left) data to be diffed.  
 Type: PUT  
 Endpoint: PUT /v1/diff/{id}/left  
@@ -36,7 +36,7 @@ Request Body:
 Response:  
 201 Created - if the data is successfully uploaded  
 
-##### 2. Upload Right Data
+#### 2. Upload Right Data
 This endpoint uploads the 2nd (right) data to be diffed.  
 Type: PUT  
 Endpoint: PUT /v1/diff/{id}/right  
@@ -51,7 +51,7 @@ Request Body:
 Response:  
 201 Created - if the data is successfully uploaded  
 
-##### 3. Get Diff Results
+#### 3. Get Diff Results
 This endpoint retrieves the diff results for the specified data.  
 Type: GET  
 Endpoint: GET /v1/diff/{id}  
@@ -85,7 +85,7 @@ Response: 201 Created
 PUT /v1/diff/1/right
 ```json
 {
-"data": "AAAAAA=="
+"data": "AQABAQ=="
 }
 ```
 Response: 201 Created
