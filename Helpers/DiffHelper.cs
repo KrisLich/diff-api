@@ -30,7 +30,7 @@ namespace DiffAPI.Helpers
                 return new DiffResultModel { DiffResultType = DiffResultType.SizeDoNotMatch };
             }
 
-            if (left.Equals(right))
+            if (left.SequenceEqual(right))
             {
                 return new DiffResultModel { DiffResultType = DiffResultType.Equals };
             }
