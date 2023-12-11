@@ -42,13 +42,26 @@ namespace DiffAPI.Controllers
         [EnableRateLimiting("fixed")]
         public IActionResult UploadLeftData(string id, [FromBody] DataRequestModel data)
         {
-            _logger.LogInformation($"Received PUT request for left data with ID [{id}] and value ({data.Data})");
+            try
+            {
+                _logger.LogInformation($"Received PUT request for left data with ID [{id}] and value ({data.Data})");
 
-            // Base64 decoding
-            byte[] decodedData = Convert.FromBase64String(data.Data);
+                // Base64 decoding
+                byte[] decodedData = Convert.FromBase64String(data.Data);
 
-            _diffService.UploadLeftData(id, decodedData);
-            return CreatedAtAction(nameof(UploadLeftData), new { id }, null);
+                _diffService.UploadLeftData(id, decodedData);
+                return CreatedAtAction(nameof(UploadLeftData), new { id }, null);
+            }
+            catch (FormatException ex)
+            {
+                _logger.LogError($"Invalid base64 string: {ex.Message}");
+                return BadRequest("Invalid base64 string");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         /// <summary>
@@ -61,13 +74,26 @@ namespace DiffAPI.Controllers
         [EnableRateLimiting("fixed")]
         public IActionResult UploadRightData(string id, [FromBody] DataRequestModel data)
         {
-            _logger.LogInformation($"Received PUT request for right data with ID [{id}] and value ({data.Data})");
+            try
+            {
+                _logger.LogInformation($"Received PUT request for right data with ID [{id}] and value ({data.Data})");
 
-            // Base64 decoding
-            byte[] decodedData = Convert.FromBase64String(data.Data);
+                // Base64 decoding
+                byte[] decodedData = Convert.FromBase64String(data.Data);
 
-            _diffService.UploadRightData(id, decodedData);
-            return CreatedAtAction(nameof(UploadRightData), new { id }, null);
+                _diffService.UploadRightData(id, decodedData);
+                return CreatedAtAction(nameof(UploadRightData), new { id }, null);
+            }
+            catch (FormatException ex)
+            {
+                _logger.LogError($"Invalid base64 string: {ex.Message}");
+                return BadRequest("Invalid base64 string");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         /// <summary>
